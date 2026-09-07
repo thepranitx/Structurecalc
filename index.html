@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StructureCalc — Visual Structural Calculators</title>
+  <meta name="description" content="Visual structural engineering calculators for beams, sections, loads and material weights.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="StructureCalc home">
+      <span class="brand-mark">SC</span>
+      <span><strong>StructureCalc</strong><small>Visual engineering calculators</small></span>
+    </a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
+    <nav id="main-nav" class="main-nav">
+      <a href="#calculators">Calculators</a>
+      <a href="#how">How it works</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">STRUCTURAL ENGINEERING TOOLS</p>
+        <h1>Calculate it.<br><span>See it.</span></h1>
+        <p class="hero-text">Interactive calculators for beams, sections, loads and material weights — with the engineering visual beside the numbers.</p>
+        <a class="primary-btn" href="#calculators">Explore calculators <span>→</span></a>
+      </div>
+      <div class="hero-visual" aria-label="Illustration of a loaded beam">
+        <svg viewBox="0 0 620 310" role="img">
+          <defs>
+            <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+              <path d="M0,0 L8,4 L0,8 z"></path>
+            </marker>
+          </defs>
+          <line class="dim" x1="105" y1="250" x2="515" y2="250"/>
+          <line class="beam" x1="105" y1="145" x2="515" y2="145"/>
+          <polygon class="support" points="130,145 102,195 158,195"/>
+          <circle class="support-pin" cx="490" cy="175" r="20"/>
+          <line class="load" x1="310" y1="55" x2="310" y2="125" marker-end="url(#arrow)"/>
+          <text x="330" y="62">P</text>
+          <text x="300" y="276">L</text>
+          <path class="curve" d="M105 145 Q310 230 515 145"/>
+        </svg>
+      </div>
+    </section>
+
+    <section id="calculators" class="section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">CALCULATOR LIBRARY</p>
+          <h2>Choose a calculation</h2>
+        </div>
+        <label class="search-wrap">
+          <span>Search</span>
+          <input id="search" type="search" placeholder="e.g. deflection, steel weight">
+        </label>
+      </div>
+
+      <div class="category-grid" id="category-grid">
+        <article class="category-card" data-search="beams beam deflection shear bending moment reactions">
+          <div class="category-icon">↕</div>
+          <h3>Beams</h3>
+          <p>Analyse common beam configurations and visualise response.</p>
+          <div class="tool-list">
+            <a href="calculators/beam-deflection.html">Beam Deflection <span>→</span></a>
+            <a href="#" class="coming-soon">Shear Force <span>→</span></a>
+            <a href="#" class="coming-soon">Bending Moment <span>→</span></a>
+            <a href="#" class="coming-soon">Support Reactions <span>→</span></a>
+          </div>
+        </article>
+
+        <article class="category-card" data-search="sections i section rhs shs channel angle properties area inertia">
+          <div class="category-icon">▱</div>
+          <h3>Section Properties</h3>
+          <p>Find geometric properties and section mass from dimensions.</p>
+          <div class="tool-list">
+            <a href="#" class="coming-soon">I-Section <span>→</span></a>
+            <a href="#" class="coming-soon">RHS / SHS <span>→</span></a>
+            <a href="#" class="coming-soon">Channel <span>→</span></a>
+            <a href="#" class="coming-soon">Angle <span>→</span></a>
+          </div>
+        </article>
+
+        <article class="category-card" data-search="weight steel kg meter plate pipe rhs shs material">
+          <div class="category-icon">kg</div>
+          <h3>Weight</h3>
+          <p>Quick material weight calculations with clear units.</p>
+          <div class="tool-list">
+            <a href="#" class="coming-soon">Steel Weight / m <span>→</span></a>
+            <a href="#" class="coming-soon">Plate Weight <span>→</span></a>
+            <a href="#" class="coming-soon">Pipe Weight <span>→</span></a>
+            <a href="#" class="coming-soon">RHS / SHS Weight <span>→</span></a>
+          </div>
+        </article>
+
+        <article class="category-card" data-search="columns buckling euler slenderness axial">
+          <div class="category-icon">▥</div>
+          <h3>Columns</h3>
+          <p>Start with stability, buckling and axial-load tools.</p>
+          <div class="tool-list">
+            <a href="#" class="coming-soon">Euler Buckling <span>→</span></a>
+            <a href="#" class="coming-soon">Slenderness Ratio <span>→</span></a>
+            <a href="#" class="coming-soon">Axial Capacity <span>→</span></a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="how" class="feature-strip">
+      <div><span class="step">01</span><h3>Pick a tool</h3><p>Navigate by engineering problem.</p></div>
+      <div><span class="step">02</span><h3>Enter inputs</h3><p>Use familiar engineering units.</p></div>
+      <div><span class="step">03</span><h3>See the result</h3><p>Understand the answer visually.</p></div>
+    </section>
+
+    <section id="about" class="disclaimer">
+      <strong>Engineering note</strong>
+      <p>These tools are intended for preliminary calculations and learning. Always verify assumptions, units, load cases and applicable design-code requirements before using results for engineering decisions.</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 StructureCalc</span>
+    <span>Built for visual engineering</span>
+  </footer>
+  <script src="js/app.js"></script>
+</body>
+</html>
