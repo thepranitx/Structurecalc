@@ -1,18 +1,30 @@
-# StructureCalc
+# StructureCalc – IS 800 Steel Beam Design
 
-Visual structural engineering calculators.
+This folder contains the steel beam design page for StructureCalc.
 
-## Current calculator
-- Beam Deflection — simply supported beam with a central point load
+## Files
+- `calculators/steel-beam-design.html`
+- `css/beam-design.css`
+- `js/beam-design.js`
 
-## Planned
-- Shear force and bending moment
-- Support reactions
-- Steel section properties
-- Steel weight per metre
-- RHS / SHS / pipe calculations
-- Column buckling
-- Unit conversions
+## GitHub upload
+Copy these three files into your existing StructureCalc repository, preserving the folders.
 
-## Important
-The calculators are intended for preliminary calculations and learning. Verify assumptions, units, load cases and applicable design-code requirements before using results for engineering decisions.
+Then open:
+`calculators/steel-beam-design.html`
+
+## Important engineering note
+The current JavaScript is a UI/prototype calculation model. The support diagrams are visual and the support-specific coefficients are preliminary placeholders.
+
+Before using this as a professional IS 800 design calculator, replace the calculation engine with validated implementations for:
+- IS 800:2007 section classification
+- bending strength
+- lateral torsional buckling
+- shear strength and web buckling where applicable
+- deflection/serviceability
+- load combinations
+- concentrated load/web bearing checks
+- actual structural analysis for fixed, pinned-fixed and fixed-pinned beams
+- verified IS 808 section properties
+
+Do not use the present output as a final code-compliance certificate.
