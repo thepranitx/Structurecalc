@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Beam Deflection Calculator — StructureCalc</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .calc-page{max-width:1180px;margin:auto;padding:30px 24px 70px}.crumb{font-size:12px;color:var(--muted);margin-bottom:24px}.crumb a:hover{color:var(--accent)}
+    .calc-title{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:24px}.calc-title h1{font-size:44px;margin:0}.calc-title p{color:var(--muted);max-width:600px;margin:8px 0 0;font-size:14px}
+    .calculator{display:grid;grid-template-columns:330px 1fr;gap:18px}.panel{background:white;border:1px solid var(--line);border-radius:18px;padding:20px}.panel h2{font-size:18px;margin:0 0 16px}.field{margin-bottom:14px}.field label{display:flex;justify-content:space-between;gap:10px;font-size:12px;font-weight:700;margin-bottom:6px}.field label span{font-weight:500;color:var(--muted)}.field input,.field select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:9px;background:white;color:var(--ink);outline:none}.field input:focus,.field select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+    .calc-btn{width:100%;border:0;background:var(--dark);color:white;padding:12px;border-radius:9px;font-weight:750;cursor:pointer;margin-top:5px}.calc-btn:hover{opacity:.92}.note{font-size:11px;color:var(--muted);margin:12px 0 0}
+    .visual-panel{min-width:0}.beam-wrap{border:1px solid var(--line);border-radius:14px;background:#fbfcfd;padding:15px}.beam-svg{display:block;width:100%;height:auto}.beam-line{stroke:#17202b;stroke-width:10;stroke-linecap:round}.sup{fill:white;stroke:#526170;stroke-width:2}.load-line{stroke:var(--accent);stroke-width:3}.load-head{fill:var(--accent)}.dimension{stroke:#9aa6b2;stroke-width:1}.diagram-text{fill:#526170;font-size:14px;font-family:inherit}.deflected{fill:none;stroke:#7d8b99;stroke-width:3;stroke-dasharray:8 7}
+    .results{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.result{background:#f6f8fa;border:1px solid var(--line);border-radius:12px;padding:14px}.result small{display:block;color:var(--muted);font-size:11px}.result strong{display:block;font-size:22px;letter-spacing:-.03em;margin-top:3px}.result em{font-style:normal;font-size:11px;color:var(--muted)}
+    .tabs{display:flex;gap:7px;margin-top:14px;flex-wrap:wrap}.tab{border:1px solid var(--line);background:white;border-radius:8px;padding:8px 11px;font-size:12px}.tab.active{background:var(--accent-soft);border-color:#c9dcfb;color:var(--accent);font-weight:700}
+    .formula{margin-top:14px;background:#17202b;color:white;border-radius:12px;padding:15px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;overflow:auto}.formula .muted{color:#aeb8c3}.validation{min-height:18px;color:#b42318;font-size:11px;margin-top:7px}
+    @media(max-width:850px){.calculator{grid-template-columns:1fr}.calc-title{display:block}.calc-title h1{font-size:36px}.results{grid-template-columns:1fr 1fr}.calc-page{padding-left:18px;padding-right:18px}}
+    @media(max-width:430px){.results{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../index.html"><span class="brand-mark">SC</span><span><strong>StructureCalc</strong><small>Visual engineering calculators</small></span></a>
+  <a href="../index.html" style="font-size:13px;color:var(--muted)">← All calculators</a>
+</header>
+
+<main class="calc-page">
+  <div class="crumb"><a href="../index.html">Home</a> / <a href="../index.html#calculators">Beams</a> / Beam Deflection</div>
+  <div class="calc-title">
+    <div><p class="eyebrow">BEAM CALCULATOR</p><h1>Beam Deflection</h1><p>Simply supported beam with a single point load at midspan. Change an input and recalculate to update the visual and results.</p></div>
+  </div>
+
+  <section class="calculator">
+    <form class="panel" id="beam-form">
+      <h2>Inputs</h2>
+      <div class="field"><label for="span">Span <span>mm</span></label><input id="span" type="number" min="1" max="1000000" step="1" value="5000" required></div>
+      <div class="field"><label for="load">Point load <span>kN</span></label><input id="load" type="number" min="0" max="100000" step="0.1" value="10" required></div>
+      <div class="field"><label for="elasticity">Young's modulus, E <span>GPa</span></label><input id="elasticity" type="number" min="0.001" max="1000" step="1" value="200" required></div>
+      <div class="field"><label for="inertia">Second moment, I <span>mm⁴</span></label><input id="inertia" type="number" min="0.000001" max="1e15" step="1000" value="50000000" required></div>
+      <button class="calc-btn" type="submit">Calculate</button>
+      <div class="validation" id="validation" aria-live="polite"></div>
+      <p class="note">Model: simply supported beam, central point load, linear-elastic Euler–Bernoulli beam theory. Deflection is reported downward as a positive magnitude.</p>
+    </form>
+
+    <div class="panel visual-panel">
+      <h2>Visual analysis</h2>
+      <div class="beam-wrap">
+        <svg id="beam-svg" class="beam-svg" viewBox="0 0 760 330" role="img" aria-label="Beam diagram showing a central point load and deflected shape">
+          <defs><marker id="arrowHead" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto"><path class="load-head" d="M0 0 L9 4.5 L0 9 z"/></marker></defs>
+          <line class="beam-line" x1="95" y1="130" x2="665" y2="130"/>
+          <polygon class="sup" points="95,130 67,182 123,182"/>
+          <circle class="sup" cx="665" cy="160" r="22"/>
+          <line id="load-arrow" class="load-line" x1="380" y1="45" x2="380" y2="112" marker-end="url(#arrowHead)"/>
+          <text id="load-label" class="diagram-text" x="394" y="54">10 kN</text>
+          <path id="deflected-path" class="deflected" d="M95 130 Q380 205 665 130"/>
+          <line class="dimension" x1="95" y1="225" x2="665" y2="225"/>
+          <line class="dimension" x1="95" y1="217" x2="95" y2="233"/>
+          <line class="dimension" x1="665" y1="217" x2="665" y2="233"/>
+          <text id="span-label" class="diagram-text" x="355" y="250">5000 mm</text>
+          <text class="diagram-text" x="48" y="205">A</text><text class="diagram-text" x="680" y="205">B</text>
+        </svg>
+      </div>
+
+      <div class="results" aria-live="polite">
+        <div class="result"><small>Maximum deflection</small><strong id="deflection">8.14</strong><em>mm downward</em></div>
+        <div class="result"><small>Maximum bending moment</small><strong id="moment">12.50</strong><em>kN·m</em></div>
+        <div class="result"><small>Support reaction</small><strong id="reaction">5.00</strong><em>kN at each support</em></div>
+      </div>
+
+      <div class="tabs" aria-label="Diagram views">
+        <button type="button" class="tab active">Deflection</button>
+        <button type="button" class="tab" id="show-original">Original beam</button>
+        <button type="button" class="tab" id="show-both">Both</button>
+      </div>
+      <div class="formula"><span class="muted">Central point load:</span> δmax = P L³ / (48 E I)<br><span class="muted">Maximum moment:</span> Mmax = P L / 4<br><span class="muted">Each reaction:</span> R = P / 2</div>
+    </div>
+  </section>
+</main>
+<script src="../js/beam-deflection.js"></script>
+</body>
+</html>
