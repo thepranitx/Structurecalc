@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Steel Weight / m | StructureCalc</title>
+<link rel="stylesheet" href="../css/steel-weight.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../index.html"><span class="logo">SC</span><span><b>StructureCalc</b><small>Structural Engineering Calculators</small></span></a>
+  <a class="back" href="../index.html">← All calculators</a>
+</header>
+
+<main>
+<section class="hero">
+  <div>
+    <div class="eyebrow">STEEL WEIGHT CALCULATOR</div>
+    <h1>Steel Weight / m</h1>
+    <p>Calculate theoretical weight per metre for hollow structural sections. SHS and RHS are available now; additional IS sections can be added later.</p>
+  </div>
+  <div class="density"><span>STEEL DENSITY</span><strong>7850 kg/m³</strong></div>
+</section>
+
+<section class="workspace">
+  <div class="card input-card">
+    <h2>Section Input</h2>
+    <label class="label">Select section
+      <select id="sectionType">
+        <option value="shs">SHS — Square Hollow Section</option>
+        <option value="rhs">RHS — Rectangular Hollow Section</option>
+        <option disabled>──────── Future sections ────────</option>
+        <option disabled>I Section — Coming later</option>
+        <option disabled>ISMB — Coming later</option>
+        <option disabled>ISWB — Coming later</option>
+        <option disabled>ISLB — Coming later</option>
+        <option disabled>ISHB — Coming later</option>
+        <option disabled>ISMC — Coming later</option>
+        <option disabled>Equal Angle — Coming later</option>
+        <option disabled>Unequal Angle — Coming later</option>
+        <option disabled>Circular Pipe — Coming later</option>
+      </select>
+    </label>
+
+    <div class="section-name" id="sectionName">SHS</div>
+    <div class="fields" id="fields"></div>
+
+    <div class="density-input">
+      <label class="label">Steel density
+        <div class="input-unit"><input id="density" type="number" value="7850" min="1" step="1"><span>kg/m³</span></div>
+      </label>
+    </div>
+
+    <div class="buttons">
+      <button id="calculate">Calculate Weight</button>
+      <button id="reset" class="secondary">Reset</button>
+    </div>
+    <div class="validation" id="validation"></div>
+  </div>
+
+  <div class="card visual-card">
+    <div class="card-head"><h2>Section Preview</h2><span id="previewName">SHS</span></div>
+    <div class="visual" id="visual"></div>
+    <div class="dimension-note">All dimensions in <b>mm</b></div>
+  </div>
+
+  <div class="card result-card">
+    <div class="eyebrow">CALCULATED RESULT</div>
+    <div class="result-number"><span id="weight">0.00</span><small>kg/m</small></div>
+    <div class="result-box"><span>Cross-sectional area</span><strong id="area">0.00 mm²</strong></div>
+    <div class="result-box"><span>Steel density</span><strong id="densityResult">7850 kg/m³</strong></div>
+    <div class="formula" id="formula">Weight = Area × Density</div>
+  </div>
+</section>
+
+<section class="card explanation">
+  <h2>Calculation</h2>
+  <p id="explanation">For SHS/RHS, the hollow area is subtracted from the outside area.</p>
+  <div class="equation">Weight / m = Cross-sectional area × 0.00785</div>
+  <p class="muted">For standard rolled sections, later versions can use verified IS 808 catalogue masses. This calculator uses the entered geometric dimensions and density.</p>
+</section>
+</main>
+<script src="../js/steel-weight.js"></script>
+</body>
+</html>
